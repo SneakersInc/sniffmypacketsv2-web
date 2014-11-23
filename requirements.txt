@@ -1,0 +1,5 @@
+# List of modules needed for sniffMyPackets web interface
+
+pygeoip
+pyshark
+flask

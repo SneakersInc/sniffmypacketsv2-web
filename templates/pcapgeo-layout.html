@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PCAP Geo IP Map</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/MarkerCluster.css')}}" />
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/MarkerCluster.Default.css')}}" />
+
+</head>
+<body>
+
+    <div id="map" style="width: 1200px; height: 480px"></div>
+
+    <script src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <script src="{{ url_for('static', filename='js/leaflet.markercluster-src.js') }}"></script>
+
+    <script>
+
+        var tiles = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+				maxZoom: 18,
+				attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors, Points &copy 2012 LINZ'
+			}),
+			latlng = L.latLng(0, 0);
+
+		var map = L.map('map', {center: latlng, zoom: 3, layers: [tiles]});
+
+        var hops = [
+            {% block geo %} {% endblock %}
+            ];
+
+        var markers = L.markerClusterGroup();
+
+		for (var i = 0; i < hops.length; i++) {
+			marker = new L.marker([hops[i][1],hops[i][2]]);
+			marker.bindPopup(hops[i][0]);
+			markers.addLayer(marker);
+		}
+
+		map.addLayer(markers);
+
+        var points = [
+            {% block lines %} {% endblock %}
+            ];
+
+        for (var s = 0; s < points.length; s++) {
+            var pointA = new L.LatLng(points[s][0], points[s][1]);
+            var pointB = new L.LatLng(points[s][2], points[s][3]);
+            var pointList = [pointA, pointB];
+            var firstpolyline = new L.polyline(pointList);
+            firstpolyline.addTo(map);
+        }
+
+    </script>
+
+</body>
+</html>

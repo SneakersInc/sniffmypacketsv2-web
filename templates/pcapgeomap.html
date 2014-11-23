@@ -1,0 +1,12 @@
+{% extends "pcapgeo-layout.html" %}
+{% block geo %}
+        {% for g in geomap %}
+            ["{{ g[0] }}", {{ g[1] }}, {{ g[2] }}],
+        {% endfor %}
+{% endblock %}
+
+{% block lines %}
+        {% for x in geomap %}
+         [{{ x[1] }}, {{ x[2] }}, {{ x[4] }}, {{ x[5] }}],
+        {% endfor %}
+{% endblock %}
