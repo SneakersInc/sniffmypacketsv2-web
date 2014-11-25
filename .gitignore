@@ -1,6 +1,6 @@
 #Exclude conf files generated when canari package installed, not the main conf file though
 *.conf
-!.idea/*
+.idea/*
 
 #Exclude python autosave and complied files
 *.pyc
