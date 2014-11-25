@@ -7,12 +7,12 @@
 import pygeoip
 import pyshark
 
-ipaddr = []
-geoip = []
 home_lat = '51.5081'
 home_lng = '0.0761'
 
+
 def load_packets(pcap):
+    ipaddr = []
     try:
         c = pyshark.FileCapture(pcap)
         for pkt in c:
@@ -22,11 +22,13 @@ def load_packets(pcap):
                     ipaddr.append(x)
             else:
                 pass
+        return ipaddr
     except Exception as e:
         return str(e)
 
 
-def find_geo():
+def find_geo(ipaddr):
+    geoip = []
     try:
         geoipdb = '/Users/amaxwell/Coding/Security/GeoIP/GeoLiteCity.dat'
     except Exception as e:
@@ -38,7 +40,6 @@ def find_geo():
                 proto = i[2]
             else:
                 proto = 'N/A'
-            print proto
             geosrc_lat = ''
             geosrc_lng = ''
             geodst_lat = ''
@@ -59,13 +60,13 @@ def find_geo():
                 geodst_lng = dstrec['longitude']
             data = [i[0], geosrc_lat, geosrc_lng, i[1], geodst_lat, geodst_lng, proto]
             geoip.append(data)
+        return geoip
     except Exception as e:
         return str(e)
 
 
 def generatemap():
     pcap = '/Users/amaxwell/pcaps/skype1.pcap'
-    load_packets(pcap)
-    find_geo()
-    print geoip
-    return geoip
+    x = load_packets(pcap)
+    s = find_geo(x)
+    return s
