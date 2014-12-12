@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+       {% block content %}
+        <table class="table table-striped">
+        <thead>
+            <tr>
+            <th class="text-center">Parent ID</th>
+            <th class="text-center">Packet Detail</th>
+            <th class="text-center">Packet Count</th>
+            <th class="text-center">Protocol</th>
+            <th class="text-center">Source IP</th>
+            <th class="text-center">Source Port</th>
+            <th class="text-center">Destination IP</th>
+            <th class="text-center">Destination Port</th>
+           </tr>
+       </thead>
+       <tbody>
+        {% for p in records %}
+        <tr>
+                <td class="text-center"><a href="/pcap/{{ p['Parent ID'] }}">{{ p['Parent ID'] }}</a></td>
+                <td class="text-center"><a href="/pcap/details/{{ p['File Name'] }}">Details</a></td>
+                <td class="text-center">{{ p['Packet Count'] }}</td>
+                <td class="text-center">{{ p['Packet']['Protocol'] }}</td>
+                <td class="text-center">{{ p['Packet']['Source IP'] }}</td>
+                <td class="text-center">{{ p['Packet']['Source Port'] }}</td>
+                <td class="text-center">{{ p['Packet']['Destination IP'] }}</td>
+                <td class="text-center">{{ p['Packet']['Destination Port'] }}</td>
+            </tr>
+        {% endfor %}
+    {% endblock %}
+       </tbody>
+       </table>

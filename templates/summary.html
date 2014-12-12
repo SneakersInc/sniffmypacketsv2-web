@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+    {% block content %}
+
+    <a href="/pcap/{{ id }}/dns" class="btn btn-primary" role="button">DNS Traffic</a>
+    <a href="/pcap/{{ id }}/http" class="btn btn-primary" role="button">HTTP Traffic</a>
+    <a href="/pcap/{{ id }}/geo" class="btn btn-primary" role="button">Geo IP Summary</a>
+    <a href="/pcap/{{ id }}/map" class="btn btn-primary" role="button">GeoMap</a>
+    <a href="/pcap/{{ id }}/streams" class="btn btn-primary" role="button">TCP/UDP Streams</a>
+
+    {% endblock %}

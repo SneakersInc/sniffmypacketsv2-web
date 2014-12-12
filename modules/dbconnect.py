@@ -18,11 +18,10 @@ def mongo_connect():
     port = 27017
     username = conf.get('mongodb', 'username').strip('\'')
     password = conf.get('mongodb', 'username').strip('\'')
-
     try:
         connection = pymongo.MongoClient(server, port)
         db = connection[dbs]
     except pymongo.errors.ConnectionFailure, e:
-        print "Could not connect to MongoDB: %s" % e
+        return "Could not connect to MongoDB: %s" % e
     else:
-      return db
+        return db

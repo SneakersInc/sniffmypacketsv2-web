@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>PCAP Geo IP Map</title>
+    <title>sniffMyPackets - GeoMap</title>
+    <div class="masthead"></div>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Pragma" CONTENT="no-cache">
@@ -10,6 +11,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/MarkerCluster.css')}}" />
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/MarkerCluster.Default.css')}}" />
+
 
 </head>
 <body>
@@ -30,19 +32,27 @@
 			latlng = L.latLng('51.5081','0.0761', 0);
 
 		var map = L.map('map', {center: latlng, zoom: 3, layers: [tiles]});
-        var hops = [];
-        hops = [
-            {% block geo %} {% endblock %}
+
+        var src_hops = [];
+
+        src_hops = [
+            {% block source %} {% endblock %}
             ];
 
-        var markers = L.markerClusterGroup();
+        var src_markers = L.markerClusterGroup();
 
-		for (var i = 0; i < hops.length; i++) {
-			marker = new L.marker([hops[i][1],hops[i][2]]).update();
-			marker.bindPopup(hops[i][0]);
-			markers.addLayer(marker);
-		}
-		map.addLayer(markers);
+		    for (var i = 0; i < src_hops.length; i++) {
+			    src_marker = new L.marker([src_hops[i][1],src_hops[i][2]]).update();
+			    src_marker.bindPopup(src_hops[i][0]);
+			    src_markers.addLayer(src_marker);
+		    }
+
+		    map.addLayer(src_markers);
+
+        var polyline = L.polyline([
+            {% block lines %} {% endblock %}
+            ]
+            ).addTo(map);
 
     </script>
 

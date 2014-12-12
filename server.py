@@ -4,9 +4,9 @@
 
 # API/Web server
 import os
-import modules.pcapmap
+from flask.ext.pymongo import PyMongo
 from flask import Flask, jsonify, make_response, request, render_template, url_for, redirect, send_from_directory
-from werkzeug import secure_filename
+
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -15,35 +15,101 @@ UPLOAD_FOLDER = os.path.join(basedir, 'static/uploads/')
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['MONGO_HOST'] = 'devserver'
+app.config['MONGO_PORT'] = 27017
+app.config['MONGO_DBNAME'] = 'sniffMyPackets'
 
-def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+mongo = PyMongo(app, config_prefix='MONGO')
 
-@app.route('/pcap/upload', methods=['GET', 'POST'])
-def upload_file():
-    if request.method == 'POST':
-        file = request.files['file']
-        if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            return redirect(url_for('uploaded_file', filename=filename))
 
-@app.route('/pcap/uploads/<filename>')
-def uploaded_file(filename):
-    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
-@app.route('/geomap/', methods=['GET'])
-def buildgeomap():
-    x = modules.pcapmap.generatemap()
-    return render_template('pcapgeomap.html', geomap=x)
+@app.route('/pcap/<pcapid>/map', methods=['GET'])
+def buildgeomap(pcapid):
+    try:
+        geo = mongo.db.GEOIP.find({"PCAP ID": pcapid})
+        return render_template('pcapgeomap.html', geomap=geo, line=geo)
+    except Exception as e:
+        return make_response(jsonify({'error': e}))
 
 @app.route('/', methods=['GET'])
 def home():
-    return render_template('home.html')
+    try:
+        pcaps = mongo.db.INDEX.find()
+        return render_template('home.html', pcaps=pcaps)
+    except Exception as e:
+        return make_response(jsonify({'error': e}))
 
 @app.route('/about', methods=['GET'])
 def about():
     return render_template('about.html')
+
+@app.route('/pcap/<pcapid>', methods=['GET'])
+def pcapsummary(pcapid):
+    return render_template('summary.html', id=pcapid)
+
+@app.route('/pcap/<pcapid>/dns', methods=['GET'])
+def dnspcapsummary(pcapid):
+    try:
+        dns = mongo.db.DNS.find({"PCAP ID": pcapid})
+        return render_template('dns.html', records=dns)
+    except Exception as e:
+        return make_response(jsonify({'error': e}))
+
+@app.route('/pcap/dns', methods=['GET'])
+def dnssummary():
+    try:
+        dns = mongo.db.DNS.find()
+        return render_template('dns.html', records=dns)
+    except Exception as e:
+        return make_response(jsonify({'error': e}))
+
+@app.route('/pcap/<pcapid>/http', methods=['GET'])
+def httppcapsummary(pcapid):
+    try:
+        http = mongo.db.HTTP.find({"PCAP ID": pcapid})
+        return render_template('http.html', records=http)
+    except Exception as e:
+        return make_response(jsonify({'error': e}))
+
+@app.route('/pcap/http', methods=['GET'])
+def httpsummary():
+    try:
+        http = mongo.db.HTTP.find()
+        return render_template('http.html', records=http)
+    except Exception as e:
+        return make_response(jsonify({'error': e}))
+
+@app.route('/pcap/<pcapid>/streams', methods=['GET'])
+def streampcapsummary(pcapid):
+    try:
+        http = mongo.db.STREAMS.find({"Parent ID": pcapid})
+        return render_template('streams.html', records=http)
+    except Exception as e:
+        return make_response(jsonify({'error': e}))
+
+@app.route('/pcap/http', methods=['GET'])
+def streamsummary():
+    try:
+        http = mongo.db.STREAMS.find()
+        return render_template('streams.html', records=http)
+    except Exception as e:
+        return make_response(jsonify({'error': e}))
+
+@app.route('/pcap/<pcapid>/geo', methods=['GET'])
+def geopcapsummary(pcapid):
+    try:
+        geo = mongo.db.GEOIP.find({"PCAP ID": pcapid})
+        return render_template('geo.html', records=geo)
+    except Exception as e:
+        return make_response(jsonify({'error': e}))
+
+@app.route('/pcap/geo', methods=['GET'])
+def geosummary():
+    try:
+        geo = mongo.db.GEOIP.find()
+        return render_template('geo.html', records=geo)
+    except Exception as e:
+        return make_response(jsonify({'error': e}))
 
 @app.errorhandler(404)
 def not_found(error):
