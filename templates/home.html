@@ -1,32 +1,48 @@
-{% extends "layout.html" %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>sniffMyPackets - Web Interface</title>
+        {% include "partials/header.html" %}
+  </head>
+  <body class="metro">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css')}}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/metro-bootstrap.css')}}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/metro-bootstrap-responsive.css')}}" />
+    <link href="{{ url_for('static', filename='css/iconFont.css')}}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/docs.css')}}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='js/prettify/prettify.css')}}" rel="stylesheet">
+    <script src="{{ url_for('static', filename='js/jquery/jquery.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/jquery/jquery.widget.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/jquery/jquery.mousewheel.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/prettify/prettify.js')}}"></script>
+    <div class="container">
+      {% block content %}
+        <table class="table hovered" id="home">
+            <thead>
+                <tr>
+                <th class="text-center">ID</th>
+                <th class="text-center">Upload Time</th>
+                <th class="text-center">PCAP Path</th>
+                <th class="text-center">File Size</th>
+                <th class="text-center">Comments</th>
+                <th class="text-center">MD5 Hash</th>
+               </tr>
+           </thead>
+           <tbody>
 
-{% block content %}
-    <table class="table table-striped">
-    <thead>
-        <tr>
-        <th class="text-center">ID</th>
-        <th class="text-center">Upload Time</th>
-        <!--<th class="text-center">Packet Info</th>-->
-        <th class="text-center">PCAP Path</th>
-        <th class="text-center">File Size</th>
-        <th class="text-center">Working Directory</th>
-        <th class="text-center">Comments</th>
-        <th class="text-center">MD5 Hash</th>
-       </tr>
-   </thead>
-   <tbody>
-
-    {% for p in pcaps %}
-        <tr>
-            <td class="text-center"><a href="/pcap/{{ p['PCAP ID'] }}">{{ p['PCAP ID'] }}</a></td>
-            <td class="text-center">{{ p['Upload Time'] }}</td>
-            <td class="text-center"><a onmouseover="nhpup.popup('Packet Count: {{ p['Packet Count'] }}</br>First Packet: {{ p['First Packet'] }}</br>Last Packet: {{ p['Last Packet'] }}');">{{ p['PCAP Path'] }}</a></td>
-            <td class="text-center">{{ p['File Size'] }}</td>
-            <td class="text-center">{{ p['Working Directory'] }}</td>
-            <td class="text-center">{{ p['Comments'] }}</td>
-            <td class="text-center">{{ p['MD5 Hash'] }}</td>
-        </tr>
-    {% endfor %}
-{% endblock %}
-   </tbody>
-   </table>
+        {% for p in pcaps %}
+            <tr>
+                <td class="text-center"><a href="/pcap/{{ p['PCAP ID'] }}">{{ p['PCAP ID'] }}</a></td>
+                <td class="text-center">{{ p['Upload Time'] }}</td>
+                <td class="text-center">{{ p['PCAP Path'] }}</td>
+                <td class="text-center">{{ p['File Size'] }}</td>
+                <td class="text-center">{{ p['Comments'] }}</td>
+                <td class="text-center">{{ p['MD5 Hash'] }}</td>
+            </tr>
+        {% endfor %}
+    {% endblock %}
+       </tbody>
+       </table>
+    </div>
+  </body>
+</html>

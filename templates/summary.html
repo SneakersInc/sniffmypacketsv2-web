@@ -1,10 +1,43 @@
-{% extends "layout.html" %}
+{% extends "subpages.html" %}
     {% block content %}
-
-    <a href="/pcap/{{ id }}/dns" class="btn btn-primary" role="button">DNS Traffic</a>
-    <a href="/pcap/{{ id }}/http" class="btn btn-primary" role="button">HTTP Traffic</a>
-    <a href="/pcap/{{ id }}/geo" class="btn btn-primary" role="button">Geo IP Summary</a>
-    <a href="/pcap/{{ id }}/map" class="btn btn-primary" role="button">GeoMap</a>
-    <a href="/pcap/{{ id }}/streams" class="btn btn-primary" role="button">TCP/UDP Streams</a>
-
-    {% endblock %}
+    <div class="grid fluid">
+        <div class="row">
+            <div class="span8">
+                <div class="panel">
+                    <div class="panel-header">
+                    PCAP Details
+                    </div>
+                <div class="panel-content">
+                    {% for p in records %}
+                    <b>File Name:</b> {{ p['PCAP Path'] }}</br>
+                    <b>Working Directory:</b> {{ p['Working Directory'] }}</br>
+                    <b>Upload Date/Time:</b> {{ p['Upload Time'] }}</br>
+                    <b>Comments:</b> {{ p['Comments'] }}</br></br>
+                    <b>Packet Count:</b> {{ p['Packet Count'] }}</br>
+                    <b>First Packet:</b> {{ p['First Packet'] }}</br>
+                    <b>Last Packet:</b> {{ p['Last Packet'] }}</br></br>
+                    <b>MD5 Hash:</b> {{ p['MD5 Hash'] }}</br>
+                    <b>SHA1 Hash:</b> {{ p['SHA1 Hash'] }}</br>
+                    {% endfor %}
+                </div>
+                </div>
+            </div>
+        {% endblock %}
+        {% block content2 %}
+            <div class="span3">
+                <div class="panel">
+                    <div class="panel-header">
+                        Packet Details
+                    </div>
+                    <div class="panel-content">
+                        <b>HTTP:</b> {{ http }}</br>
+                        <b>DNS:</b> {{ dns }}</br>
+                        <b>TCP/UDP Streams:</b> {{ streams }}</br>
+                        <b>Artifacts:</b> {{ files }}</br>
+                        <b>Credentials:</b> {{ creds }}</br>
+                    </div>
+                </div>
+            </div>
+        {% endblock %}
+        </div>
+    </div>

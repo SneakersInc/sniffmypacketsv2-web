@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>sniffMyPackets - Web Interface</title>
+        {% include "partials/header.html" %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css')}}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/metro-bootstrap.css')}}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/metro-bootstrap-responsive.css')}}" />
+    <link href="{{ url_for('static', filename='css/iconFont.css')}}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/docs.css')}}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='js/prettify/prettify.css')}}" rel="stylesheet">
+  </head>
+  <body class="metro">
+    <script src="{{ url_for('static', filename='js/jquery/jquery.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/jquery/jquery.widget.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/jquery/jquery.mousewheel.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/prettify/prettify.js')}}"></script>
+    <div class="span1"></div>
+    <div class="container">
+      {% block content %}
+      {% endblock %}
+      {% block content2 %}
+      {% endblock %}
+      {% block content3 %}
+      {% endblock %}
+    </div>
+  </body>
+</html>

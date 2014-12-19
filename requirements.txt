@@ -1,5 +1,2 @@
-pymongo
-pygeoip
-pyshark
 Flask
 Flask-PyMongo

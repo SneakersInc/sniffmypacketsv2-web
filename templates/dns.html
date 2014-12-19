@@ -1,6 +1,6 @@
-{% extends "layout.html" %}
+{% extends "subpages.html" %}
    {% block content %}
-    <table class="table table-striped">
+    <table class="table hovered" id="dns">
     <thead>
         <tr>
         <th class="text-center">ID</th>
@@ -22,6 +22,6 @@
             <td class="text-center">{{ p['Request Details']['Query Name'] }}</td>
         </tr>
     {% endfor %}
-{% endblock %}
+    {% endblock %}
    </tbody>
    </table>

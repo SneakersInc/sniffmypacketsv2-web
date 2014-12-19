@@ -5,3 +5,8 @@
 #Exclude python autosave and complied files
 *.pyc
 *.py~
+
+vagrant/.vagrant/*
+
+.DS_Store
+static/uploads/*

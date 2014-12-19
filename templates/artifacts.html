@@ -1,0 +1,23 @@
+{% extends "subpages.html" %}
+       {% block content %}
+        <table class="table table-striped">
+        <thead>
+            <tr>
+            <th class="text-center">PCAP ID</th>
+            <th class="text-center">File Name</th>
+            <th class="text-center">File Type</th>
+            <th class="text-center">MD5 Hash</th>
+           </tr>
+       </thead>
+       <tbody>
+        {% for p in records %}
+        <tr>
+                <td class="text-center"><a href="/pcap/{{ p['PCAP ID'] }}">{{ p['PCAP ID'] }}</a></td>
+                <td class="text-center">{{ p['File Name'] }}</td>
+                <td class="text-center">{{ p['File Type'] }}</td>
+                <td class="text-center">{{ p['MD5 Hash'] }}</td>
+            </tr>
+        {% endfor %}
+    {% endblock %}
+       </tbody>
+       </table>

@@ -1,0 +1,21 @@
+{% extends "subpages.html" %}
+   {% block content %}
+    <table class="table hovered" id="dns">
+    <thead>
+        <tr>
+        <th class="text-center">ID</th>
+        <th class="text-center">Type</th>
+        <th class="text-center">Details</th>
+       </tr>
+   </thead>
+   <tbody>
+    {% for p in records %}
+    <tr>
+            <td class="text-center"><a href="/pcap/{{ p['PCAP ID'] }}">{{ p['PCAP ID'] }}</a></td>
+            <td class="text-center">{{ p['Type'] }}</td>
+            <td class="text-center">{{ p['Record'] }}</td>
+        </tr>
+    {% endfor %}
+    {% endblock %}
+   </tbody>
+   </table>

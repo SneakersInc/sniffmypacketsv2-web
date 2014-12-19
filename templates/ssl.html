@@ -1,0 +1,33 @@
+{% extends "subpages.html" %}
+       {% block content %}
+        <table class="table hovered" id="ssl">
+        <thead>
+            <tr>
+            <th class="text-center">Parent ID</th>
+            <th class="text-center">Time Stamp</th>
+            <th class="text-center">SSL Type</th>
+            <th class="text-center">Handshake Type</th>
+            <th class="text-center">Source IP</th>
+            <th class="text-center">Source Port</th>
+            <th class="text-center">Destination IP</th>
+            <th class="text-center">Destination Port</th>
+            <th class="text-center">Server Name</th>
+           </tr>
+       </thead>
+       <tbody>
+        {% for p in records %}
+        <tr>
+                <td class="text-center"><a href="/pcap/{{ p['PCAP ID'] }}">{{ p['PCAP ID'] }}</a></td>
+                <td class="text-center">{{ p['Time Stamp'] }}</td>
+                <td class="text-center">{{ p['SSL Type'] }}</td>
+                <td class="text-center">{{ p['Handshake Type'] }}</td>
+                <td class="text-center">{{ p['Source IP'] }}</td>
+                <td class="text-center">{{ p['Source Port'] }}</td>
+                <td class="text-center">{{ p['Destination IP'] }}</td>
+                <td class="text-center">{{ p['Destination Port'] }}</td>
+                <td class="text-center">{{ p['Server Name'] }}</td>
+            </tr>
+        {% endfor %}
+    {% endblock %}
+       </tbody>
+       </table>
