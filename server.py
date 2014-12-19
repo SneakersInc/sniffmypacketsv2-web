@@ -51,7 +51,7 @@ def pcapsummary(pcapid):
         files = mongo.db.ARTIFACTS.find({"PCAP ID": pcapid}).count()
         creds = mongo.db.CREDS.find({"PCAP ID": pcapid}).count()
         return render_template('summary.html', records=summary, http=http, dns=dns, streams=streams, files=files,
-                               creds=creds)
+                               creds=creds, pcapid=pcapid)
     except Exception as e:
         return make_response(jsonify({'error': str(e)}))
 
