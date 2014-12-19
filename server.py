@@ -90,7 +90,7 @@ def httpsummary():
 @app.route('/pcap/<pcapid>/streams', methods=['GET'])
 def streampcapsummary(pcapid):
     try:
-        http = mongo.db.STREAMS.find({"Parent ID": pcapid})
+        http = mongo.db.STREAMS.find({"PCAP ID": pcapid})
         return render_template('streams.html', records=http)
     except Exception as e:
         return make_response(jsonify({'error': e}))
