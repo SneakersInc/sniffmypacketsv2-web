@@ -168,6 +168,14 @@ def credssummary():
     except Exception as e:
         return make_response(jsonify({'error': e}))
 
+@app.route('/pcap/<pcapid>/creds', methods=['GET'])
+def credspcapsummary(pcapid):
+    try:
+        files = mongo.db.CREDS.find({"PCAP ID": pcapid})
+        return render_template('creds.html', records=files)
+    except Exception as e:
+        return make_response(jsonify({'error': e}))
+
 @app.route('/pcap/uploadfiles', methods=['GET'])
 def uploadfilesummary():
     try:
