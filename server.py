@@ -10,7 +10,7 @@ from werkzeug import secure_filename
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
-ALLOWED_EXTENSIONS = ['zip', 'pcap', 'cap', 'pcapng']
+# ALLOWED_EXTENSIONS = ['zip', 'pcap', 'cap', 'pcapng', 'msg']
 UPLOAD_FOLDER = os.path.join(basedir, 'static/uploads/')
 
 app = Flask(__name__)
@@ -184,20 +184,14 @@ def uploadfilesummary():
     except Exception as e:
         return make_response(jsonify({'error': e}))
 
-
-def allowed_file(filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
-
 @app.route('/pcap/_uploads', methods=['GET', 'POST'])
 def upload_file():
     try:
         if request.method == 'POST':
             f = request.files['files']
-            if f and allowed_file(f.filename):
-                filename = secure_filename(f.filename)
-                f.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-                return '200'
+            filename = secure_filename(f.filename)
+            f.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            return '200'
     except:
         return make_response(jsonify({'error': 'Bad Robot'}))
 
