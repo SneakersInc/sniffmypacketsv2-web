@@ -4,6 +4,7 @@
 
 # API/Web server
 import os
+import json
 from flask.ext.pymongo import PyMongo
 from flask import Flask, jsonify, make_response, render_template, send_from_directory, request, redirect, url_for
 from werkzeug import secure_filename
@@ -168,11 +169,39 @@ def credssummary():
     except Exception as e:
         return make_response(jsonify({'error': e}))
 
+@app.route('/pcap/<streamid>/packets/<packetnumber>')
+def packetsummary(streamid, packetnumber):
+    try:
+        r = mongo.db.PACKETS.find({"Buffer.StreamID": streamid, "Buffer.packetnumber": int(packetnumber)}, {"_id": 0})
+        for d in r:
+            # d = json.dumps(d)
+            # print d
+            return make_response(jsonify(d))
+    except Exception as e:
+        return make_response(jsonify({'error': e}))
+
+
+@app.route('/logs', methods=['GET'])
+def errorlogs():
+    try:
+        files = mongo.db.ERRORS.find()
+        return render_template('logs.html', records=files)
+    except Exception as e:
+        return make_response(jsonify({'error': e}))
+
 @app.route('/pcap/<pcapid>/creds', methods=['GET'])
 def credspcapsummary(pcapid):
     try:
         files = mongo.db.CREDS.find({"PCAP ID": pcapid})
         return render_template('creds.html', records=files)
+    except Exception as e:
+        return make_response(jsonify({'error': e}))
+
+@app.route('/pcap/<streamid>/packets', methods=['GET'])
+def packetpcapsummary(streamid):
+    try:
+        files = mongo.db.PACKETSUMMARY.find({"Buffer.StreamID": streamid})
+        return render_template('packets.html', records=files)
     except Exception as e:
         return make_response(jsonify({'error': e}))
 

@@ -20,7 +20,7 @@
         <tr>
                 <td class="text-center"><a href="/pcap/{{ p['PCAP ID'] }}">{{ p['PCAP ID'] }}</a></td>
                 <td class="text-center">{{ p['Stream ID'] }}</td>
-                <td class="text-center"><a href="/pcap/details/{{ p['File Name'] }}">Details</a></td>
+                <td class="text-center"><a href="/pcap/{{ p['Stream ID'] }}/packets">Details</a></td>
                 <td class="text-center">{{ p['Packet Count'] }}</td>
                 <td class="text-center">{{ p['Packet']['Protocol'] }}</td>
                 <td class="text-center">{{ p['Packet']['Source IP'] }}</td>
