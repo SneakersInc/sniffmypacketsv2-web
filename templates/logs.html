@@ -3,23 +3,17 @@
     <table class="table hovered" id="logs">
     <thead>
         <tr>
-        <th class="text-center">ID</th>
         <th class="text-center">Time Stamp</th>
-        <th class="text-center">DNS Type</th>
-        <th class="text-center">Source IP</th>
-        <th class="text-center">Destination IP</th>
-        <th class="text-center">DNS Query Name</th>
+        <th class="text-center">Module</th>
+        <th class="text-center">Error Message</th>
        </tr>
    </thead>
    <tbody>
     {% for p in records %}
     <tr>
-            <td class="text-center"><a href="/pcap/{{ p['PCAP ID'] }}">{{ p['PCAP ID'] }}</a></td>
-            <td class="text-center">{{ p['Time Stamp'] }}</td>
-            <td class="text-center">{{ p['Type'] }}</td>
-            <td class="text-center">{{ p['IP']['src'] }}</td>
-            <td class="text-center">{{ p['IP']['dst'] }}</td>
-            <td class="text-center">{{ p['Request Details']['Query Name'] }}</td>
+            <td class="text-center">{{ p['TimeStamp'] }}</td>
+            <td class="text-center">{{ p['Module'] }}</td>
+            <td class="text-center">{{ p['Error Message'] }}</td>
         </tr>
     {% endfor %}
     {% endblock %}
