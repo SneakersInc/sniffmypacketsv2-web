@@ -1,23 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>sniffMyPackets - Web Interface</title>
-        {% include "partials/header.html" %}
-  </head>
-  <body class="metro">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css')}}" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/metro-bootstrap.css')}}" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/metro-bootstrap-responsive.css')}}" />
-    <link href="{{ url_for('static', filename='css/iconFont.css')}}" rel="stylesheet">
-    <link href="{{ url_for('static', filename='css/docs.css')}}" rel="stylesheet">
-    <link href="{{ url_for('static', filename='js/prettify/prettify.css')}}" rel="stylesheet">
-    <script src="{{ url_for('static', filename='js/jquery/jquery.min.js')}}"></script>
-    <script src="{{ url_for('static', filename='js/jquery/jquery.widget.min.js')}}"></script>
-    <script src="{{ url_for('static', filename='js/jquery/jquery.mousewheel.js')}}"></script>
-    <script src="{{ url_for('static', filename='js/prettify/prettify.js')}}"></script>
-    <div class="container">
+
+    {% include "partials/header.html" %}
       {% block content %}
-        <table class="table hovered" id="home">
+        <table data-toggle="table"
+                data-show-refresh="true"
+                data-search="true"
+                data-show-refresh="true"
+                data-show-toggle="true"
+                data-show-columns="true"
+                data-classes="table table-hover table-condensed"
+                data-striped="true"
+                data-pagination="true"
+                >
             <thead>
                 <tr>
                 <th class="text-center">ID</th>
@@ -40,9 +33,7 @@
                 <td class="text-center">{{ p['MD5 Hash'] }}</td>
             </tr>
         {% endfor %}
-    {% endblock %}
-       </tbody>
+        </tbody>
        </table>
-    </div>
-  </body>
-</html>
+    {% endblock %}
+    {% include "partials/footer.html" %}

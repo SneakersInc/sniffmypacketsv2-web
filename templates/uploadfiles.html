@@ -1,6 +1,15 @@
 {% extends "subpages.html" %}
    {% block content %}
-    <table class="table hovered" id="uploads">
+    <table data-toggle="table"
+                data-show-refresh="true"
+                data-search="true"
+                data-show-refresh="true"
+                data-show-toggle="true"
+                data-show-columns="true"
+                data-classes="table table-hover table-condensed"
+                data-striped="true"
+                data-pagination="true"
+                >
     <thead>
         <tr>
         <th class="text-center">PCAP ID</th>
@@ -9,6 +18,7 @@
         <th class="text-center">Upload Time</th>
         <th class="text-center">MD5 Hash</th>
         <th class="text-center">Download</th>
+       <th class="text-center">Hex View</th>
        </tr>
    </thead>
    <tbody>
@@ -19,7 +29,8 @@
             <td class="text-center">{{ p['File Type'] }}</td>
             <td class="text-center">{{ p['Upload Time'] }}</td>
             <td class="text-center">{{ p['MD5 Hash'] }}</td>
-            <td class="text-center"><a href="{{ p['Download'] }}"><i class="icon-rocket"></i></a></td>
+            <td class="text-center"><a href="{{ p['Download'] }}"><span class="glyphicon glyphicon-download" aria-hidden="false"></span></a></td>
+            <td class="text-center"><a href="/pcap/{{p['PCAP ID'] }}/hex/{{ p['File Name'] }}"><span class="glyphicon glyphicon-eye-open" aria-hidden="false"></span></a></td>
         </tr>
     {% endfor %}
     {% endblock %}

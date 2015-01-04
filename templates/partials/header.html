@@ -1,57 +1,57 @@
-<title>sniffMyPackets - Web Interface</title>
-        <div class="masthead"></div>
-<nav class="navigation-bar light">
-    <nav class="navigation-bar-content">
-        <div class="element">
-            <a href="/"><i class="icon-home"></i> Home</a>
-        </div>
-        <span class="element-divider"></span>
-         <div class="element">
-            <a href="/pcap/streams"><i class="icon-database"></i> TCP/UDP Streams</a>
-         </div>
-        <span class="element-divider"></span>
-        <div class="element">
-            <a href="/pcap/dns"><i class="icon-eye-2"></i> DNS Traffic</a></li>
-        </div>
-        <span class="element-divider"></span>
-        <div class="element">
-            <a href="/pcap/http"><i class="icon-link"></i> HTTP Traffic</a></li>
-        </div>
-        <span class="element-divider"></span>
-        <div class="element">
-            <a href="/pcap/ssl"><i class="icon-locked"></i> SSL Traffic</a></li>
-        </div>
-        <span class="element-divider"></span>
-        <div class="element">
-            <a href="/pcap/geo"><i class="icon-globe"></i> GeoIP Info</a></li>
-        </div>
-        <span class="element-divider"></span>
-        <div class="element">
-            <a href="/pcap/artifacts"><i class="icon-pictures"></i> Artifacts</a></li>
-        </div>
-        <span class="element-divider"></span>
-        <div class="element">
-            <a href="/pcap/dodgy"><i class="icon-alarm"></i> Dodgy Stuff</a></li>
-        </div>
-        <span class="element-divider"></span>
-        <div class="element">
-            <a href="/pcap/creds"><i class="icon-locked"></i> Credentials</a></li>
-        </div>
-        <span class="element-divider"></span>
-        <div class="element">
-            <a href="/pcap/uploadfiles"><i class="icon-book"></i> Uploaded Files</a></li>
-        </div>
-        <span class="element-divider"></span>
-        <span class="element-divider place-right"></span>
-        <a class="element place-right" href="/logs"><span class="icon-cog"></span></a>
-        <span class="element-divider place-right"></span>
-        <div class="element place-right input-element">
-            <form>
-                <div class="input-control text">
-                    <input type="text" placeholder="Search...">
-                    <button class="btn-search"></button>
-                </div>
-            </form>
-        </div>
-    </nav>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>sniffMyPackets - Web Interface</title>
+    <div class="masthead"></div>
+  </head>
+  <body>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css')}}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css')}}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.5.0/bootstrap-table.min.css">
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">Home</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Summary <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="/pcap/dns"><span class="glyphicon glyphicon-globe" aria-hidden="true"></span> DNS</a></li>
+            <li><a href="/pcap/artifacts">Artifacts</a></li>
+            <li><a href="/pcap/http">HTTP</a></li>
+            <li><a href="/pcap/packets">Packets</a></li>
+            <li><a href="/pcap/creds">Credentials</a></li>
+            <li><a href="/pcap/ssl">SSL</a></li>
+            <li><a href="/pcap/geo">Geo IP</a></li>
+            <li><a href="/pcap/streams">TCP/UDP Streams</a></li>
+            <li class="divider"></li>
+          </ul>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Support <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="/about">About</a></li>
+            <li><a href="/logs">Error Logs</a></li>
+            <li><a href="https://github.com/SneakersInc/sniffmypacketsv2-web/issues">Report and issue</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
 </nav>
+<div class="container">

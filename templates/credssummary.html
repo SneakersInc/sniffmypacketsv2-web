@@ -1,6 +1,7 @@
 {% extends "sumpages.html" %}
    {% block content %}
-    <table data-toggle="table"
+
+        <table data-toggle="table"
                 data-show-refresh="true"
                 data-search="true"
                 data-show-refresh="true"
@@ -12,17 +13,17 @@
                 >
     <thead>
         <tr>
-        <th class="text-center">Time Stamp</th>
-        <th class="text-center">Module</th>
-        <th class="text-center">Error Message</th>
+        <th class="text-center">ID</th>
+        <th class="text-center">Type</th>
+        <th class="text-center">Details</th>
        </tr>
    </thead>
    <tbody>
     {% for p in records %}
     <tr>
-            <td class="text-center">{{ p['TimeStamp'] }}</td>
-            <td class="text-center">{{ p['Module'] }}</td>
-            <td class="text-center">{{ p['Error Message'] }}</td>
+            <td class="text-center"><a href="/pcap/{{ p['PCAP ID'] }}">{{ p['PCAP ID'] }}</a></td>
+            <td class="text-center">{{ p['Type'] }}</td>
+            <td class="text-center">{{ p['Record'] }}</td>
         </tr>
     {% endfor %}
     {% endblock %}

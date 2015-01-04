@@ -1,13 +1,12 @@
 {% extends "subpages.html" %}
     {% block content %}
-    <div class="grid fluid">
-        <div class="row">
-            <div class="span8">
-                <div class="panel">
-                    <div class="panel-header">
-                    PCAP Details
+    <div class="row">
+    <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">PCAP Details</h3>
                     </div>
-                <div class="panel-content">
+                <div class="panel-body">
                     {% for p in records %}
                     <b>File Name:</b> {{ p['PCAP Path'] }}</br>
                     <b>PCAP ID:</b> {{ p['PCAP ID'] }}</br>
@@ -22,23 +21,23 @@
                     {% endfor %}
                 </div>
                 </div>
-            </div>
-        {% endblock %}
-        {% block content2 %}
-            <div class="span3">
-                <div class="panel">
-                    <div class="panel-header">
-                        Packet Details
-                    </div>
-                    <div class="panel-content">
-                        <b>HTTP:</b> {{ http }}<a href="/pcap/{{ pcapid }}/http"><i class="icon-search fg-red on-right"></i></a></br>
-                        <b>DNS:</b> {{ dns }}<a href="/pcap/{{ pcapid }}/dns"><i class="icon-search fg-red on-right"></i></a></br>
-                        <b>TCP/UDP Streams:</b> {{ streams }}<a href="/pcap/{{ pcapid }}/streams"><i class="icon-search fg-red on-right"></i></a></br>
-                        <b>Artifacts:</b> {{ files }}<a href="/pcap/{{ pcapid }}/artifacts"><i class="icon-search fg-red on-right"></i></a></br>
-                        <b>Credentials:</b> {{ creds }}<a href="/pcap/{{ pcapid }}/creds"><i class="icon-search fg-red on-right"></i></a></br>
-                    </div>
-                </div>
-            </div>
-        {% endblock %}
         </div>
-    </div>
+    <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">PCAP Summary</h3>
+                    </div>
+                <div class="panel-body">
+                    <b>HTTP: </b> {{ http }}  <a href="/pcap/{{ pcapid }}/http"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a></br>
+                    <b>DNS: </b> {{ dns }}  <a href="/pcap/{{ pcapid }}/dns"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a></br>
+                    <b>TCP/UDP Streams: </b> {{ streams }} <a href="/pcap/{{ pcapid }}/streams"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a></br>
+                    <b>Packets: </b> {{ packets }} <a href="/pcap/{{ pcapid }}/packets"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a></br>
+                    <b>Artifacts: </b> {{ files }} <a href="/pcap/{{ pcapid }}/artifacts"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a></br>
+                    <b>Credentials: </b> {{ creds }} <a href="/pcap/{{ pcapid }}/creds"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a></br>
+                    <b>Uploaded Files: </b> {{ uploads }} <a href="/pcap/{{ pcapid }}/uploadfiles"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a></br>
+                </div>
+                </div>
+        </div>
+        </div>
+
+        {% endblock %}

@@ -5,3 +5,9 @@
     background-repeat:no-repeat;
     background-color: #4c6275
 }
+
+/* Misc
+-------------------------------------------------- */
+.mono {
+    font-family: monospace;
+}

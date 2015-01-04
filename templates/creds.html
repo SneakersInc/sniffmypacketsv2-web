@@ -1,9 +1,19 @@
 {% extends "subpages.html" %}
    {% block content %}
-    <table class="table hovered" id="dns">
+
+        <table data-toggle="table"
+                data-show-refresh="true"
+                data-search="true"
+                data-show-refresh="true"
+                data-show-toggle="true"
+                data-show-columns="true"
+                data-classes="table table-hover table-condensed"
+                data-striped="true"
+                data-pagination="true"
+                >
     <thead>
         <tr>
-        <th class="text-center">ID</th>
+        <th class="text-center">PCAP ID</th>
         <th class="text-center">Type</th>
         <th class="text-center">Details</th>
        </tr>

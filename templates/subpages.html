@@ -1,28 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>sniffMyPackets - Web Interface</title>
-        {% include "partials/header.html" %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css')}}" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/metro-bootstrap.css')}}" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/metro-bootstrap-responsive.css')}}" />
-    <link href="{{ url_for('static', filename='css/iconFont.css')}}" rel="stylesheet">
-    <link href="{{ url_for('static', filename='css/docs.css')}}" rel="stylesheet">
-    <link href="{{ url_for('static', filename='js/prettify/prettify.css')}}" rel="stylesheet">
-  </head>
-  <body class="metro">
-    <script src="{{ url_for('static', filename='js/jquery/jquery.min.js')}}"></script>
-    <script src="{{ url_for('static', filename='js/jquery/jquery.widget.min.js')}}"></script>
-    <script src="{{ url_for('static', filename='js/jquery/jquery.mousewheel.js')}}"></script>
-    <script src="{{ url_for('static', filename='js/prettify/prettify.js')}}"></script>
-    <div class="span1"></div>
-    <div class="container">
+
+    {% include "partials/header.html" %}
+      <ul class="nav nav-tabs">
+            <li role="presentation" class="active"><a href="/pcap/{{ pcapid }}">Overview</a></li>
+            <li role="presentation"><a href="/pcap/{{ pcapid }}/streams">Streams</a></li>
+            <li role="presentation"><a href="/pcap/{{ pcapid }}/packets">Packets</a></li>
+            <li role="presentation"><a href="/pcap/{{ pcapid }}/artifacts">Artifacts</a></li>
+            <li role="presentation"><a href="/pcap/{{ pcapid }}/dns">DNS</a></li>
+            <li role="presentation"><a href="/pcap/{{ pcapid }}/http">HTTP</a></li>
+            <li role="presentation"><a href="/pcap/{{ pcapid }}/creds">Credentials</a></li>
+            <li role="presentation"><a href="/pcap/{{ pcapid }}/geo">GeoIP</a></li>
+            <li role="presentation"><a href="/pcap/{{ pcapid }}/ssl">SSL</a></li>
+            <li role="presentation"><a href="/pcap/{{ pcapid }}/uploadfiles">Uploaded Files</a></li>
+        </ul>
       {% block content %}
       {% endblock %}
-      {% block content2 %}
-      {% endblock %}
-      {% block content3 %}
-      {% endblock %}
-    </div>
-  </body>
-</html>
+    {% include "partials/footer.html" %}
