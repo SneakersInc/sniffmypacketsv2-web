@@ -35,7 +35,7 @@
             <td class="text-center">{{ p['IP']['ip_dst'] }}</td>
             <td class="text-center">{{ p['Layers'][2] }}</td>
             <td class="text-center">{{ p['Buffer']['packet_length'] }}</td>
-            <td class="text-center">{{ p['Layers'][3] }}</td>
+            <td class="text-center">{{ p['Layers']|last }}</td>
             <td class="text-center"><a href="{{ p['View'] }}" target="_blank">Here</a></td>
         </tr>
     {% endfor %}
