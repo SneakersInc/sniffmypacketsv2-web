@@ -8,4 +8,5 @@
 vagrant/.vagrant/*
 
 .DS_Store
+!static/uploads
 static/uploads/*

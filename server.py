@@ -54,7 +54,7 @@ def pcapsummary(pcapid):
         files = mongo.db.ARTIFACTS.find({"PCAP ID": pcapid}).count()
         creds = mongo.db.CREDS.find({"PCAP ID": pcapid}).count()
         uploads = mongo.db.FILES.find({"PCAP ID": pcapid}).count()
-        packets = mongo.db.PACKETS.find({"Buffer.PCAPID": pcapid}).count()
+        packets = mongo.db.PACKETS.find({"Buffer.PCAP ID": pcapid}).count()
         return render_template('summary.html', records=summary, http=http, dns=dns, streams=streams, files=files,
                                creds=creds, pcapid=pcapid, uploads=uploads, packets=packets)
     except Exception as e:
