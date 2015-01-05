@@ -226,7 +226,7 @@ def packetsummarypage():
 def uploadfilesummary():
     try:
         files = mongo.db.FILES.find()
-        return render_template('uploadfiles.html', records=files)
+        return render_template('uploadfilesummary.html', records=files)
     except Exception as e:
         return make_response(jsonify({'error': e}))
 

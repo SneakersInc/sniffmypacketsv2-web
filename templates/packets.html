@@ -36,9 +36,9 @@
             <td class="text-center">{{ p['Layers'][2] }}</td>
             <td class="text-center">{{ p['Buffer']['packet_length'] }}</td>
             <td class="text-center">{{ p['Layers']|last }}</td>
-            <td class="text-center"><a href="{{ p['View'] }}" target="_blank">Here</a></td>
+            <td class="text-center"><a href="{{ p['View'] }}" target="_blank"><span class="glyphicon glyphicon-tasks" aria-hidden="true"></span></a></td>
         </tr>
     {% endfor %}
-    {% endblock %}
-   </tbody>
+    </tbody>
    </table>
+    {% endblock %}

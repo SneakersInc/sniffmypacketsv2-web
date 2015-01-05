@@ -1,16 +1,16 @@
 
     {% include "partials/header.html" %}
       <ul class="nav nav-tabs">
-            <li role="presentation" class="active"><a href="/pcap/{{ pcapid }}">Overview</a></li>
-            <li role="presentation"><a href="/pcap/{{ pcapid }}/streams">Streams</a></li>
-            <li role="presentation"><a href="/pcap/{{ pcapid }}/packets">Packets</a></li>
-            <li role="presentation"><a href="/pcap/{{ pcapid }}/artifacts">Artifacts</a></li>
-            <li role="presentation"><a href="/pcap/{{ pcapid }}/dns">DNS</a></li>
-            <li role="presentation"><a href="/pcap/{{ pcapid }}/http">HTTP</a></li>
-            <li role="presentation"><a href="/pcap/{{ pcapid }}/creds">Credentials</a></li>
-            <li role="presentation"><a href="/pcap/{{ pcapid }}/geo">GeoIP</a></li>
-            <li role="presentation"><a href="/pcap/{{ pcapid }}/ssl">SSL</a></li>
-            <li role="presentation"><a href="/pcap/{{ pcapid }}/uploadfiles">Uploaded Files</a></li>
+            <li role="presentation" class="active"><a href="/pcap/{{ pcapid }}"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> Overview</a></li>
+            <li role="presentation"><a href="/pcap/{{ pcapid }}/streams"><span class="glyphicon glyphicon-stats" aria-hidden="true"></span> Streams</a></li>
+            <li role="presentation"><a href="/pcap/{{ pcapid }}/packets"><span class="glyphicon glyphicon-stats" aria-hidden="true"></span> Packets</a></li>
+            <li role="presentation"><a href="/pcap/{{ pcapid }}/artifacts"><span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span> Artifacts</a></li>
+            <li role="presentation"><a href="/pcap/{{ pcapid }}/dns"><span class="glyphicon glyphicon-globe" aria-hidden="true"></span> DNS</a></li>
+            <li role="presentation"><a href="/pcap/{{ pcapid }}/http"><span class="glyphicon glyphicon-link" aria-hidden="true"></span> HTTP</a></li>
+            <li role="presentation"><a href="/pcap/{{ pcapid }}/creds"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span> Credentials</a></li>
+            <li role="presentation"><a href="/pcap/{{ pcapid }}/geo"><span class="glyphicon glyphicon-globe" aria-hidden="true"></span> GeoIP</a></li>
+            <li role="presentation"><a href="/pcap/{{ pcapid }}/ssl"><span class="glyphicon glyphicon-link" aria-hidden="true"></span> SSL</a></li>
+            <li role="presentation"><a href="/pcap/{{ pcapid }}/uploadfiles"><span class="glyphicon glyphicon-file" aria-hidden="true"></span> Uploaded Files</a></li>
         </ul>
       {% block content %}
       {% endblock %}
