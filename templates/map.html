@@ -1,60 +1,34 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>sniffMyPackets - GeoMap</title>
-    <div class="masthead"></div>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="Pragma" CONTENT="no-cache">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/MarkerCluster.css')}}" />
-	<link rel="stylesheet" href="{{ url_for('static', filename='css/MarkerCluster.Default.css')}}" />
-
-
-</head>
-<body>
-
-    <div id="map" style="width:100%; height: 800px"></div>
-
-    <script src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-    <script src="{{ url_for('static', filename='js/leaflet.markercluster-src.js') }}"></script>
-
+{% extends "subpages.html" %}
+   {% block content %}
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+    <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+    <div class="panel-body">
+    <div id="map" style="width:100%; height: 330px"></div>
     <script>
 
         var tiles = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 				maxZoom: 18,
 				attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors, Points &copy 2012 LINZ'
 			}),
-			latlng = L.latLng('51.5081','0.0761', 0);
+			latlng = L.latLng('51.5081','0.0761', 6);
 
 		var map = L.map('map', {center: latlng, zoom: 3, layers: [tiles]});
 
-        var src_hops = [];
-
-        src_hops = [
-            {% block source %} {% endblock %}
+        planes = [
+        {% for g in geo %}
+            ["<b>Source IP: </b><a href='/pcap/{{ pcapid }}/iplookup/{{ g['src'] }}'>{{ g['src'] }}</a><br>Source Port: {{ g['src port'] }}<br>Protocol: {{ g['Protocol'] }}</b>",
+            {{ g['src geo']['latitude'] }}, {{ g['src geo']['longitude'] }}],
+            {% endfor %}
             ];
 
-        var src_markers = L.markerClusterGroup();
 
-		    for (var i = 0; i < src_hops.length; i++) {
-			    src_marker = new L.marker([src_hops[i][1],src_hops[i][2]]).update();
-			    src_marker.bindPopup(src_hops[i][0]);
-			    src_markers.addLayer(src_marker);
-		    }
+        for (var i = 0; i < planes.length; i++) {
+			marker = new L.marker([planes[i][1],planes[i][2]])
+				.bindPopup(planes[i][0])
+				.addTo(map);
+		}
 
-		    map.addLayer(src_markers);
-
-        var polyline = L.polyline([
-            {% block lines %} {% endblock %}
-            ]
-            ).addTo(map);
 
     </script>
-
-</body>
-</html>
+    </div>
+  {% endblock %}

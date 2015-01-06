@@ -10,6 +10,7 @@ import commands
 from flask.ext.pymongo import PyMongo
 from flask import Flask, jsonify, make_response, render_template, send_from_directory, request
 from werkzeug import secure_filename
+from modules.iptools import *
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -28,7 +29,7 @@ mongo = PyMongo(app, config_prefix='MONGO')
 def buildgeomap(pcapid):
     try:
         geo = mongo.db.GEOIP.find({"PCAP ID": pcapid})
-        return render_template('pcapgeomap.html', geomap=geo, line=geo)
+        return render_template('map.html', geo=geo, pcapid=pcapid)
     except Exception as e:
         return make_response(jsonify({'error': e}))
 
@@ -54,9 +55,10 @@ def pcapsummary(pcapid):
         files = mongo.db.ARTIFACTS.find({"PCAP ID": pcapid}).count()
         creds = mongo.db.CREDS.find({"PCAP ID": pcapid}).count()
         uploads = mongo.db.FILES.find({"PCAP ID": pcapid}).count()
+        geo = mongo.db.GEOIP.find({"PCAP ID": pcapid}).count()
         packets = mongo.db.PACKETS.find({"Buffer.PCAP ID": pcapid}).count()
         return render_template('summary.html', records=summary, http=http, dns=dns, streams=streams, files=files,
-                               creds=creds, pcapid=pcapid, uploads=uploads, packets=packets)
+                               creds=creds, pcapid=pcapid, uploads=uploads, packets=packets, geo=geo)
     except Exception as e:
         return make_response(jsonify({'error': str(e)}))
 
@@ -235,6 +237,29 @@ def uploadfiles(pcapid):
     try:
         files = mongo.db.FILES.find({"PCAP ID": pcapid})
         return render_template('uploadfiles.html', records=files, pcapid=pcapid)
+    except Exception as e:
+        return make_response(jsonify({'error': e}))
+
+@app.route('/pcap/<pcapid>/iplookup/<ipaddr>', methods=['GET'])
+def iplookup(pcapid, ipaddr):
+    try:
+        files = mongo.db.PACKETSUMMARY.find({"$or": [{"IP.ip_src": ipaddr}, {"IP.ip_dst": ipaddr}]})
+        x = ip_lookup(ipaddr)
+        r = reverse_dns(ipaddr)
+        gmap = mongo.db.GEOIP.find({"src": ipaddr}).count()
+        if gmap > 0:
+            geomap = mongo.db.GEOIP.find({"src": ipaddr})
+            for g in geomap:
+                lat = g['src geo']['latitude']
+                lng = g['src geo']['longitude']
+        else:
+            try:
+                lat = x['latitude']
+                lng = x['longitude']
+            except:
+                lat = 0
+                lng = 0
+        return render_template('iplookup.html', records=files, ipaddr=ipaddr, lat=lat, lng=lng, rnds=r, info=x, pcapid=pcapid)
     except Exception as e:
         return make_response(jsonify({'error': e}))
 

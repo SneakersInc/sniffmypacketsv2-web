@@ -10,15 +10,16 @@
                 data-pagination="true"
                 >
     <thead>
-        <tr>
+       <tr>
         <th class="text-center">ID</th>
         <th class="text-center">Protocol</th>
         <th class="text-center">Source IP</th>
         <th class="text-center">Source Port</th>
-        <th class="text-center">Source Country</th>
-        <th class="text-center">Destination IP</th>
-        <th class="text-center">Destination Port</th>
-        <th class="text-center">Destination Country</th>
+        <th class="text-center">Country</th>
+        <th class="text-center">City</th>
+        <th class="text-center">Region</th>
+        <th class="text-center">Timezone</th>
+        <th class="text-center">Map View</th>
        </tr>
    </thead>
    <tbody>
@@ -26,12 +27,13 @@
     <tr>
             <td class="text-center"><a href="/pcap/{{ p['PCAP ID'] }}">{{ p['PCAP ID'] }}</a></td>
             <td class="text-center">{{ p['Protocol'] }}</td>
-            <td class="text-center">{{ p['src'] }}</td>
+            <td class="text-center"><a href="/pcap/{{ p['PCAP ID'] }}/iplookup/{{ p['src'] }}">{{ p['src'] }}</a></td>
             <td class="text-center">{{ p['src port'] }}</td>
             <td class="text-center">{{ p['src geo']['country_name'] }}</td>
-            <td class="text-center">{{ p['dst'] }}</td>
-            <td class="text-center">{{ p['dst port'] }}</td>
-            <td class="text-center">{{ p['dst geo']['country_name'] }}</td>
+            <td class="text-center">{{ p['src geo']['city'] }}</td>
+            <td class="text-center">{{ p['src geo']['postal_code'] }}</td>
+            <td class="text-center">{{ p['src geo']['time_zone'] }}</td>
+            <td class="text-center"><a href="/pcap/{{ p['PCAP ID'] }}/map"><span class="glyphicon glyphicon-eye-open" aria-hidden="false"></span></a></td>
         </tr>
     {% endfor %}
     </tbody>

@@ -1,2 +1,4 @@
 Flask
 Flask-PyMongo
+requests
+dnspython

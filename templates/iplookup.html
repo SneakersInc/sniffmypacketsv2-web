@@ -1,0 +1,94 @@
+{% extends "subpages.html" %}
+   {% block content %}
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+    <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+    <div class="row">
+    <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">IP Details - {{ ipaddr }}</h3>
+                    </div>
+                <div class="panel-body">
+                <b>ASN: </b> {{ info['asn'] }}</br>
+                <b>Offset: </b> {{ info['offset'] }}</br>
+                <b>ISP: </b> {{ info['isp'] }}</br>
+                <b>Country: </b> {{ info['country'] }}</br>
+                <b>Timezone: </b> {{ info['timezone'] }}</br>
+                <b>Latitude: </b> {{ info['latitude'] }}</br>
+                <b>Longitude: </b> {{ info['longitude'] }}
+                </div>
+                </div>
+        <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Summary Information - {{ ipaddr }}</h3>
+                    </div>
+                <div class="panel-body">
+                <b>Reverse DNS: </b>{{ rnds }}
+                </div>
+                </div>
+        </div>
+    <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Map Location - <b>Latitude: </b> {{ lat }}<b> Longitude: </b> {{ lng }}</h3>
+                    </div>
+                <div class="panel-body">
+                    <div id="map" style="width:100%; height: 330px"></div>
+                    <script>
+                    var map = L.map('map').setView([{{ lat }}, {{ lng }}], 8);
+                    L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
+                    maxZoom: 18}).addTo(map);
+                    var marker = L.marker([{{ lat }}, {{ lng }}]).addTo(map);
+                    marker.bindPopup("<b>{{ ipaddr }}</b>").openPopup();
+                    </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div class="row">
+        <table data-toggle="table"
+                data-search="true"
+                data-show-refresh="true"
+                data-show-toggle="true"
+                data-show-columns="true"
+                data-classes="table table-hover table-condensed"
+                data-striped="true"
+                data-pagination="true"
+                >
+    <thead>
+        <tr>
+        <th class="text-center">PCAP ID</th>
+        <th class="text-center">Stream ID</th>
+        <th class="text-center">Packet Number</th>
+        <th class="text-center">Time Stamp</th>
+        <th class="text-center">Source</th>
+        <th class="text-center">Destination</th>
+        <th class="text-center">Protocol</th>
+        <th class="text-center">Length</th>
+        <th class="text-center">Info</th>
+        <th class="text-center">View</th>
+       </tr>
+   </thead>
+   <tbody>
+    {% for p in records %}
+    <tr>
+            <td class="text-center"><a href="/pcap/{{ p['PCAP ID'] }}">{{ p['PCAP ID'] }}</a></td>
+            <td class="text-center"><a href="/pcap/{{ p['PCAP ID'] }}/{{ p['Buffer']['StreamID'] }}/packets">{{ p['Buffer']['StreamID'] }}</a></td>
+            <td class="text-center">{{ p['Buffer']['packetnumber'] }}</td>
+            <td class="text-center">{{ p['Buffer']['timestamp'] }}</td>
+            <td class="text-center"><a href="/pcap/{{ p['PCAP ID'] }}/iplookup/{{ p['IP']['ip_src'] }}">{{ p['IP']['ip_src'] }}</a></td>
+            <td class="text-center"><a href="/pcap/{{ p['PCAP ID'] }}/iplookup/{{ p['IP']['ip_dst'] }}">{{ p['IP']['ip_dst'] }}</a></td>
+            <td class="text-center">{{ p['Layers'][2] }}</td>
+            <td class="text-center">{{ p['Buffer']['packet_length'] }}</td>
+            <td class="text-center">{{ p['Layers']|last }}</td>
+            <td class="text-center"><a href="{{ p['View'] }}" target="_blank"><span class="glyphicon glyphicon-tasks" aria-hidden="true"></span></a></td>
+        </tr>
+    {% endfor %}
+   </tbody>
+   </table>
+
+</div>
+
+   {% endblock %}
+

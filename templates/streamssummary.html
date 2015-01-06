@@ -28,12 +28,12 @@
         <tr>
                 <td class="text-center"><a href="/pcap/{{ p['PCAP ID'] }}">{{ p['PCAP ID'] }}</a></td>
                 <td class="text-center">{{ p['Stream ID'] }}</td>
-                <td class="text-center"><a href="/pcap/{{ p['Stream ID'] }}/packets">Details</a></td>
+                <td class="text-center"><a href="/pcap/{{ p['PCAP ID'] }}/{{ p['Stream ID'] }}/packets">Details</a></td>
                 <td class="text-center">{{ p['Packet Count'] }}</td>
                 <td class="text-center">{{ p['Packet']['Protocol'] }}</td>
-                <td class="text-center">{{ p['Packet']['Source IP'] }}</td>
+                <td class="text-center"><a href="/pcap/{{ p['PCAP ID'] }}/iplookup/{{ p['Packet']['Source IP'] }}">{{ p['Packet']['Source IP'] }}</a></td>
                 <td class="text-center">{{ p['Packet']['Source Port'] }}</td>
-                <td class="text-center">{{ p['Packet']['Destination IP'] }}</td>
+                <td class="text-center"><a href="/pcap/{{ p['PCAP ID'] }}/iplookup/{{ p['Packet']['Destination IP'] }}">{{ p['Packet']['Destination IP'] }}</a></td>
                 <td class="text-center">{{ p['Packet']['Destination Port'] }}</td>
             </tr>
         {% endfor %}
