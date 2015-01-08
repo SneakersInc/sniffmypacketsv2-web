@@ -32,7 +32,7 @@ def buildgeomap(pcapid):
         geo = mongo.db.GEOIP.find({"PCAP ID": pcapid})
         return render_template('map.html', geo=geo, pcapid=pcapid)
     except Exception as e:
-        return make_response(jsonify({'error': e}))
+        return render_template('error.html', error=e)
 
 @app.route('/', methods=['GET'])
 def home():
@@ -40,7 +40,7 @@ def home():
         pcaps = mongo.db.INDEX.find()
         return render_template('home.html', pcaps=pcaps)
     except Exception as e:
-        return make_response(jsonify({'error': e}))
+        return render_template('error.html', error=e)
 
 @app.route('/about', methods=['GET'])
 def about():
@@ -61,7 +61,7 @@ def pcapsummary(pcapid):
         return render_template('summary.html', records=summary, http=http, dns=dns, streams=streams, files=files,
                                creds=creds, pcapid=pcapid, uploads=uploads, packets=packets, geo=geo)
     except Exception as e:
-        return make_response(jsonify({'error': str(e)}))
+        return render_template('error.html', error=e)
 
 @app.route('/pcap/<pcapid>/dns', methods=['GET'])
 def dnspcapsummary(pcapid):
@@ -69,7 +69,7 @@ def dnspcapsummary(pcapid):
         dns = mongo.db.DNS.find({"PCAP ID": pcapid})
         return render_template('dns.html', records=dns, pcapid=pcapid)
     except Exception as e:
-        return make_response(jsonify({'error': e}))
+        return render_template('error.html', error=e)
 
 @app.route('/pcap/dns', methods=['GET'])
 def dnssummary():
@@ -77,7 +77,7 @@ def dnssummary():
         dns = mongo.db.DNS.find()
         return render_template('dnssummary.html', records=dns)
     except Exception as e:
-        return make_response(jsonify({'error': e}))
+        return render_template('error.html', error=e)
 
 @app.route('/pcap/<pcapid>/http', methods=['GET'])
 def httppcapsummary(pcapid):
@@ -85,7 +85,7 @@ def httppcapsummary(pcapid):
         http = mongo.db.HTTP.find({"PCAP ID": pcapid})
         return render_template('http.html', records=http, pcapid=pcapid)
     except Exception as e:
-        return make_response(jsonify({'error': e}))
+        return render_template('error.html', error=e)
 
 @app.route('/pcap/http', methods=['GET'])
 def httpsummary():
@@ -93,7 +93,7 @@ def httpsummary():
         http = mongo.db.HTTP.find()
         return render_template('httpsummary.html', records=http)
     except Exception as e:
-        return make_response(jsonify({'error': e}))
+        return render_template('error.html', error=e)
 
 @app.route('/pcap/<pcapid>/streams', methods=['GET'])
 def streampcapsummary(pcapid):
@@ -101,7 +101,7 @@ def streampcapsummary(pcapid):
         http = mongo.db.STREAMS.find({"PCAP ID": pcapid})
         return render_template('streams.html', records=http, pcapid=pcapid)
     except Exception as e:
-        return make_response(jsonify({'error': e}))
+        return render_template('error.html', error=e)
 
 
 @app.route('/pcap/streams', methods=['GET'])
@@ -110,7 +110,7 @@ def streamsummary():
         http = mongo.db.STREAMS.find()
         return render_template('streamssummary.html', records=http)
     except Exception as e:
-        return make_response(jsonify({'error': e}))
+        return render_template('error.html', error=e)
 
 @app.route('/pcap/<pcapid>/geo', methods=['GET'])
 def geopcapsummary(pcapid):
@@ -118,7 +118,7 @@ def geopcapsummary(pcapid):
         geo = mongo.db.GEOIP.find({"PCAP ID": pcapid})
         return render_template('geo.html', records=geo, pcapid=pcapid)
     except Exception as e:
-        return make_response(jsonify({'error': e}))
+        return render_template('error.html', error=e)
 
 @app.route('/pcap/geo', methods=['GET'])
 def geosummary():
@@ -126,7 +126,7 @@ def geosummary():
         geo = mongo.db.GEOIP.find()
         return render_template('geosummary.html', records=geo)
     except Exception as e:
-        return make_response(jsonify({'error': e}))
+        return render_template('error.html', error=e)
 
 @app.route('/pcap/<pcapid>/ssl', methods=['GET'])
 def sslpcapsummary(pcapid):
@@ -134,7 +134,7 @@ def sslpcapsummary(pcapid):
         ssl = mongo.db.SSL.find({"PCAP ID": pcapid})
         return render_template('ssl.html', records=ssl, pcapid=pcapid)
     except Exception as e:
-        return make_response(jsonify({'error': e}))
+        return render_template('error.html', error=e)
 
 @app.route('/pcap/ssl', methods=['GET'])
 def sslsummary():
@@ -142,7 +142,7 @@ def sslsummary():
         ssl = mongo.db.SSL.find()
         return render_template('sslsummary.html', records=ssl)
     except Exception as e:
-        return make_response(jsonify({'error': e}))
+        return render_template('error.html', error=e)
 
 @app.route('/pcap/<pcapid>/artifacts', methods=['GET'])
 def filespcapsummary(pcapid):
@@ -150,7 +150,7 @@ def filespcapsummary(pcapid):
         files = mongo.db.ARTIFACTS.find({"PCAP ID": pcapid})
         return render_template('artifacts.html', records=files, pcapid=pcapid)
     except Exception as e:
-        return make_response(jsonify({'error': e}))
+        return render_template('error.html', error=e)
 
 @app.route('/pcap/artifacts', methods=['GET'])
 def filesummary():
@@ -158,7 +158,7 @@ def filesummary():
         files = mongo.db.ARTIFACTS.find()
         return render_template('artifactssummary.html', records=files)
     except Exception as e:
-        return make_response(jsonify({'error': e}))
+        return render_template('error.html', error=e)
 
 @app.route('/pcap/dodgy', methods=['GET'])
 def dodgysummary():
@@ -166,7 +166,7 @@ def dodgysummary():
         files = mongo.db.MALWARE.find()
         return render_template('dodgy.html', records=files)
     except Exception as e:
-        return make_response(jsonify({'error': e}))
+        return render_template('error.html', error=e)
 
 @app.route('/pcap/creds', methods=['GET'])
 def credssummary():
@@ -174,7 +174,7 @@ def credssummary():
         files = mongo.db.CREDS.find()
         return render_template('credssummary.html', records=files)
     except Exception as e:
-        return make_response(jsonify({'error': e}))
+        return render_template('error.html', error=e)
 
 @app.route('/pcap/<pcapid>/<streamid>/packets/<packetnumber>')
 def packetsummary(pcapid, streamid, packetnumber):
@@ -183,7 +183,7 @@ def packetsummary(pcapid, streamid, packetnumber):
         for d in r:
             return make_response(jsonify(d))
     except Exception as e:
-        return make_response(jsonify({'error': e}))
+        return render_template('error.html', error=e)
 
 @app.route('/logs', methods=['GET'])
 def errorlogs():
@@ -191,7 +191,7 @@ def errorlogs():
         files = mongo.db.ERRORS.find()
         return render_template('logs.html', records=files)
     except Exception as e:
-        return make_response(jsonify({'error': e}))
+        return render_template('error.html', error=e)
 
 @app.route('/pcap/<pcapid>/creds', methods=['GET'])
 def credspcapsummary(pcapid):
@@ -199,7 +199,7 @@ def credspcapsummary(pcapid):
         files = mongo.db.CREDS.find({"PCAP ID": pcapid})
         return render_template('creds.html', records=files, pcapid=pcapid)
     except Exception as e:
-        return make_response(jsonify({'error': e}))
+        return render_template('error.html', error=e)
 
 @app.route('/pcap/<pcapid>/<streamid>/packets', methods=['GET'])
 def packetpcapsummary(pcapid, streamid):
@@ -207,7 +207,7 @@ def packetpcapsummary(pcapid, streamid):
         files = mongo.db.PACKETSUMMARY.find({"Buffer.StreamID": streamid})
         return render_template('packets.html', records=files, pcapid=pcapid)
     except Exception as e:
-        return make_response(jsonify({'error': e}))
+        return render_template('error.html', error=e)
 
 @app.route('/pcap/<pcapid>/packets', methods=['GET'])
 def pcappacketsummarypage(pcapid):
@@ -215,7 +215,7 @@ def pcappacketsummarypage(pcapid):
         files = mongo.db.PACKETSUMMARY.find({"PCAP ID": pcapid})
         return render_template('packets.html', records=files, pcapid=pcapid)
     except Exception as e:
-        return make_response(jsonify({'error': e}))
+        return render_template('error.html', error=e)
 
 @app.route('/pcap/packets', methods=['GET'])
 def packetsummarypage():
@@ -223,7 +223,7 @@ def packetsummarypage():
         files = mongo.db.PACKETSUMMARY.find()
         return render_template('packetsummary.html', records=files)
     except Exception as e:
-        return make_response(jsonify({'error': e}))
+        return render_template('error.html', error=e)
 
 @app.route('/pcap/uploadfiles', methods=['GET'])
 def uploadfilesummary():
@@ -231,7 +231,7 @@ def uploadfilesummary():
         files = mongo.db.FILES.find()
         return render_template('uploadfilesummary.html', records=files)
     except Exception as e:
-        return make_response(jsonify({'error': e}))
+        return render_template('error.html', error=e)
 
 @app.route('/pcap/<pcapid>/uploadfiles', methods=['GET'])
 def uploadfiles(pcapid):
@@ -239,7 +239,7 @@ def uploadfiles(pcapid):
         files = mongo.db.FILES.find({"PCAP ID": pcapid})
         return render_template('uploadfiles.html', records=files, pcapid=pcapid)
     except Exception as e:
-        return make_response(jsonify({'error': e}))
+        return render_template('error.html', error=e)
 
 # IP Lookup
 @app.route('/pcap/<pcapid>/iplookup/<ipaddr>', methods=['GET'])
@@ -263,7 +263,7 @@ def iplookup(pcapid, ipaddr):
                 lng = 0
         return render_template('iplookup.html', records=files, ipaddr=ipaddr, lat=lat, lng=lng, rnds=r, info=x, pcapid=pcapid)
     except Exception as e:
-        return make_response(jsonify({'error': e}))
+        return render_template('error.html', error=e)
 
 @app.route('/pcap/_uploads', methods=['GET', 'POST'])
 def upload_file():
@@ -302,7 +302,7 @@ def find_packets():
             records = mongo.db.PACKETSUMMARY.find({"PCAP ID": value})
         return render_template('search.html', records=records)
     except Exception as e:
-        return make_response(jsonify({'error': e}))
+        return render_template('error.html', error=e)
 
 # Search by date range
 @app.route('/search-date', methods=['POST'])
@@ -313,7 +313,7 @@ def find_packets_date():
         records = mongo.db.PACKETSUMMARY.find({"Buffer.timestamp": {"$gte": start, "$lt": end}})
         return render_template('search.html', records=records)
     except Exception as e:
-        return make_response(jsonify({'error': e}))
+        return render_template('error.html', error=e)
 
 # Hex Viewer by @kevthehermit https://github.com/kevthehermit/viper/blob/web_update/web.py
 @app.route('/hex', methods=['GET', 'POST'])
@@ -358,7 +358,8 @@ def hex_viewer():
 
 @app.errorhandler(404)
 def not_found(error):
-    return make_response(jsonify({'error': 'Not found'}), 404)
+    e = 'Whoops, page not found!!!..try again'
+    return render_template('error.html', error=e)
 
 if __name__ == '__main__':
-  app.run(host='0.0.0.0', port=5666, debug=True)
+    app.run(host='0.0.0.0', port=5666, debug=True)
