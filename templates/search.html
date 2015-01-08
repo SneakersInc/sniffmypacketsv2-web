@@ -1,0 +1,44 @@
+{% extends "sumpages.html" %}
+   {% block content %}
+
+    <table data-toggle="table"
+                data-search="true"
+                data-show-refresh="true"
+                data-show-toggle="true"
+                data-show-columns="true"
+                data-classes="table table-hover table-condensed"
+                data-striped="true"
+                data-pagination="true"
+                >
+    <thead>
+        <tr>
+        <th class="text-center">PCAP ID</th>
+        <th class="text-center">Stream ID</th>
+        <th class="text-center">Packet Number</th>
+        <th class="text-center">Time Stamp</th>
+        <th class="text-center">Source</th>
+        <th class="text-center">Destination</th>
+        <th class="text-center">Protocol</th>
+        <th class="text-center">Length</th>
+        <th class="text-center">Info</th>
+        <th class="text-center">View</th>
+       </tr>
+   </thead>
+   <tbody>
+    {% for p in records %}
+    <tr>
+            <td class="text-center"><a href="/pcap/{{ p['PCAP ID'] }}">{{ p['PCAP ID'] }}</a></td>
+            <td class="text-center"><a href="/pcap/{{ p['PCAP ID'] }}/{{ p['Buffer']['StreamID'] }}/packets">{{ p['Buffer']['StreamID'] }}</a></td>
+            <td class="text-center">{{ p['Buffer']['packetnumber'] }}</td>
+            <td class="text-center">{{ p['Buffer']['timestamp'] }}</td>
+            <td class="text-center"><a href="/pcap/{{ p['PCAP ID'] }}/iplookup/{{ p['IP']['ip_src'] }}">{{ p['IP']['ip_src'] }}</a></td>
+            <td class="text-center"><a href="/pcap/{{ p['PCAP ID'] }}/iplookup/{{ p['IP']['ip_dst'] }}">{{ p['IP']['ip_dst'] }}</a></td>
+            <td class="text-center">{{ p['Layers'][2] }}</td>
+            <td class="text-center">{{ p['Buffer']['packet_length'] }}</td>
+            <td class="text-center">{{ p['Layers']|last }}</td>
+            <td class="text-center"><a href="{{ p['View'] }}" target="_blank"><span class="glyphicon glyphicon-tasks" aria-hidden="true"></span></a></td>
+        </tr>
+    {% endfor %}
+   </tbody>
+   </table>
+    {% endblock %}

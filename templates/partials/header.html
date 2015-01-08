@@ -40,6 +40,32 @@
           </ul>
         </li>
       </ul>
+      <form class="navbar-form navbar-left" role="search" action="/search" enctype="multipart/form-data" method="post" name="search" target="_self">
+        <div class="form-group">
+          <select class="form-control" name="key">
+            <option value="ip">IP</option>
+            <option value="id">PCAP ID</option>
+            <option value="port">Port</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="sr-only" for="term">Search Term</label>
+          <input type="text" class="form-control" name="term" id="term" placeholder="Quick Search">
+        </div>
+        <button type="submit" class="btn btn-default">Search</button>
+      </form>
+      <form class="navbar-form navbar-left" role="form" action="/search-date" enctype="multipart/form-data" method="post" name="submit" target="_self">
+           <div class="form-group">
+                <label class="sr-only" for="start">Start Time</label>
+                <input type="search" class="form-control" name="start" id="start" placeholder="Start Time">
+           </div>
+          <div class="form-group">
+                <input type="text" class="form-control" name="end" id="end" placeholder="End Time">
+            </div>
+
+            <button type="submit" class="btn btn-default">Search</button>
+        </form>
+
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Support <span class="caret"></span></a>

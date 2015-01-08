@@ -6,6 +6,7 @@
 
 # API/Web server
 import os
+import re
 import commands
 from flask.ext.pymongo import PyMongo
 from flask import Flask, jsonify, make_response, render_template, send_from_directory, request
@@ -240,6 +241,7 @@ def uploadfiles(pcapid):
     except Exception as e:
         return make_response(jsonify({'error': e}))
 
+# IP Lookup
 @app.route('/pcap/<pcapid>/iplookup/<ipaddr>', methods=['GET'])
 def iplookup(pcapid, ipaddr):
     try:
@@ -285,6 +287,33 @@ def get_hex(pcapid, filename):
         files = i['MD5 Hash']
         return render_template('hex.html', records=files, fname=filename, pcapid=pcapid)
 
+# Search by IP, Port or PCAP ID
+@app.route('/search', methods=['POST'])
+def find_packets():
+    try:
+        key = request.form.get('key')
+        value = request.form.get('term')
+        if key == 'ip':
+            records = mongo.db.PACKETSUMMARY.find({"$or": [{"IP.ip_src": value}, {"IP.ip_dst": value}]})
+        if key == 'port':
+            records = mongo.db.PACKETSUMMARY.find({"$or": [{"TCP.tcp_sport": int(value)}, {"TCP.tcp_dport": int(value)},
+                                                           {"UDP.udp_sport": int(value)}, {"UDP.udp_dport": int(value)}]})
+        if key == 'id':
+            records = mongo.db.PACKETSUMMARY.find({"PCAP ID": value})
+        return render_template('search.html', records=records)
+    except Exception as e:
+        return make_response(jsonify({'error': e}))
+
+# Search by date range
+@app.route('/search-date', methods=['POST'])
+def find_packets_date():
+    try:
+        start = request.form.get('start')
+        end = request.form.get('end')
+        records = mongo.db.PACKETSUMMARY.find({"Buffer.timestamp": {"$gte": start, "$lt": end}})
+        return render_template('search.html', records=records)
+    except Exception as e:
+        return make_response(jsonify({'error': e}))
 
 # Hex Viewer by @kevthehermit https://github.com/kevthehermit/viper/blob/web_update/web.py
 @app.route('/hex', methods=['GET', 'POST'])
