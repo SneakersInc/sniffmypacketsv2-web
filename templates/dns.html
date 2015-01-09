@@ -19,6 +19,7 @@
         <th class="text-center">Source IP</th>
         <th class="text-center">Destination IP</th>
         <th class="text-center">DNS Query Name</th>
+        <th class="text-center">Domain</th>
        </tr>
    </thead>
    <tbody>
@@ -31,6 +32,7 @@
             <td class="text-center"><a href="/pcap/{{ p['PCAP ID'] }}/iplookup/{{ p['IP']['src'] }}">{{ p['IP']['src'] }}</a></td>
             <td class="text-center"><a href="/pcap/{{ p['PCAP ID'] }}/iplookup/{{ p['IP']['dst'] }}">{{ p['IP']['dst'] }}</a></td>
             <td class="text-center">{{ p['Request Details']['Query Name'] }}</td>
+            <td class="text-center">{{ p['Request Details']['Domain'] }}</td>
         </tr>
     {% endfor %}
     </tbody>
