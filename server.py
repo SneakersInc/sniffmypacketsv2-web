@@ -261,7 +261,8 @@ def iplookup(pcapid, ipaddr):
             except:
                 lat = 0
                 lng = 0
-        return render_template('iplookup.html', records=files, ipaddr=ipaddr, lat=lat, lng=lng, rnds=r, info=x, pcapid=pcapid)
+        return render_template('iplookup.html', records=files, ipaddr=ipaddr, lat=lat, lng=lng, rnds=r,
+                               info=x, pcapid=pcapid)
     except Exception as e:
         return render_template('error.html', error=e)
 

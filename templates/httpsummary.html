@@ -19,6 +19,7 @@
             <th class="text-center">Destination IP</th>
             <th class="text-center">Method</th>
             <th class="text-center">Host</th>
+            <th class="text-center">URI</th>
 
 
            </tr>
@@ -33,6 +34,7 @@
                 <td class="text-center"><a href="/pcap/{{ p['PCAP ID'] }}/iplookup/{{ p['IP']['dst'] }}">{{ p['IP']['dst'] }}</a></td>
                 <td class="text-center">{{ p['HTTP']['Method'] }}</td>
                 <td class="text-center">{{ p['HTTP']['Host'] }}</td>
+                <td class="text-center">{{ p['HTTP']['URI'] }}</td>
             </tr>
         {% endfor %}
         </tbody>
